@@ -30,7 +30,6 @@ def home(request):
 			raw_medico = form.cleaned_data['medico']
 			medico_nome = Medico.objects.get(medico_nome=raw_medico)
 			especialidade_nome = Especialidade.objects.get(especialidade_nome=raw_especialidade)
-			especialidade_id = int(especialidade_nome.id)
 			paciente_nome = form.cleaned_data['nome']
 			data_nascimento = form.cleaned_data['data_nascimento']
 			sexo = form.cleaned_data['sexo']
@@ -75,18 +74,47 @@ def get_lista_pacientes():
     lista_todos.execute("select paciente_nome, paciente_data_consulta, especialidade_nome, medico_nome from hospital_paciente, hospital_especialidade, hospital_medico where paciente_especialidade_id=hospital_especialidade.id and paciente_medico_id=hospital_medico.id order by paciente_nome");
     return dictfetchall(lista_todos)
 
+def get_consulta_especialidade(especialidade,data):
+	consulta_por_especialidade = connection.cursor()
+	consulta_por_especialidade.execute("select paciente_nome, paciente_data_consulta, especialidade_nome, medico_nome from hospital_paciente, hospital_especialidade, hospital_medico where paciente_especialidade_id=hospital_especialidade.id and paciente_medico_id=hospital_medico.id and hospital_especialidade.especialidade_nome='%s' and paciente_data_consulta='%s'" %(especialidade,data));
+	return dictfetchall(consulta_por_especialidade)
+
+def get_consulta_medico(medico,data):
+	consulta_por_medico = connection.cursor()
+	consulta_por_medico.execute("select paciente_nome, paciente_data_consulta, especialidade_nome, medico_nome from hospital_paciente, hospital_especialidade, hospital_medico where paciente_especialidade_id=hospital_especialidade.id and paciente_medico_id=hospital_medico.id and hospital_medico.medico_nome='%s' and paciente_data_consulta='%s'" %(medico,data));
+	return dictfetchall(consulta_por_medico)
+
+def get_consulta_data(data):
+	consulta_por_data = connection.cursor()
+	consulta_por_data.execute("select paciente_nome, paciente_data_consulta, especialidade_nome, medico_nome from hospital_paciente, hospital_especialidade, hospital_medico where paciente_especialidade_id=hospital_especialidade.id and paciente_medico_id=hospital_medico.id and paciente_data_consulta='%s'" %data)
+	return dictfetchall(consulta_por_data)
+
 
 def pesquisa(request):
 	content=''
 	mensagem = 'Resultados da Pesquisa:'
 	msg ='Nao foram encontrados resultados!'
+	opcao = request.GET.get('opcao')
 	nome = request.GET.get('nome')
 	data = request.GET.get('data')
-	if nome:
+	if opcao =="Nome":
 		resultado = get_consulta(nome, data)
-		content = {'query': nome, 'resultado': resultado,'mensagem':mensagem}
-		if resultado ==[]:
+		content = {'resultado': resultado}
+		if resultado == []:
 			content = {'msg':msg}
+
+	elif opcao == "Especialidade":
+		resultado = get_consulta_especialidade(nome,data)
+		content = {'resultado':resultado}
+
+	elif opcao == "Medico":
+		resultado = get_consulta_medico(nome,data)
+		content = {'resultado':resultado}
+
+	else:
+		resultado = get_consulta_data(data)
+		content = {'resultado':resultado}
+
 			
 	template = 'pesquisa.html'
 	return render(request,template,content)

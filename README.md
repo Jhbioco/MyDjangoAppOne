@@ -1,0 +1,3 @@
+# MyDjangoAppOne
+I am starting a Web App with Python-Django and i'll adding modules until finish app.
+If you want to begin with python-django developer you can see this example project.....

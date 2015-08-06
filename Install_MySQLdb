@@ -1,0 +1,30 @@
+Ref:
+[1] - Problem with installing ‘MySQLdb’ in Python
+[2] - Stackoverflow - How to install MySQLdb (Python data access library to MySQL) on Mac OS X?
+[3] - Python MySQL for EC2 Amazon AMI
+Since the version of MySQLDB was changing in the old days, the instructions about how to install this useful tool varies a lot, which makes this tool is very hard to install.
+Among all these instructions I found, I find they are not for the current version of MySQLDB. And some steps mentioned by these instructions are not necessary.
+So I'm just going to give my install procedure. Hope it will help someone.
+The MySQLDB I'm using is the MySQL-python-1.2.4b4.
+Step 1
+Make sure you have install gcc, mysql-devel and of cource mysql. If not, follow this post.
+Step 2
+Although most EC2 instance will be with python, but still you will need python-devel.
+yum install python-devel
+Note that this may need admin user.
+Step 3
+Download the source code to some place you can easily access to, and unzip it:
+url -O http://jaist.dl.sourceforge.net/project/mysql-python/mysql-python-test/1.2.4b4/MySQL-python-1.2.4b4.tar.gz
+tar -xzvf MySQL-python-1.2.4b4.tar.gz
+Go into the dir you just unzipped, install it directly:
+python setup.py build
+python setup.py install
+It should be done by now. You could check by
+import MySQLdb
+in the python console.
+The procedure could be a little different according how you set up your EC2 instance, but the most tricky part, I believe, is installing python-devel before you install the MySQLdb.
+To sum up, before you install MySQLdb, make sure you have below all intalled:
+python-devel
+MySQL-devel
+Mysql(if you are using the local instance of mysql)
+gcc

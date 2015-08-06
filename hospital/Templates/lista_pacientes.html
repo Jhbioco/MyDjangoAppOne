@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="containery">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary">Lista de Pacientes</button>
+
+  </div>
+</div>
+<div class="containerx">      
+  <table class="table table-hover">
+    
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Data da Consulta</th>
+        <th>Especialidade</th>
+        <th>Médico</th>
+      </tr>
+    </thead>
+    {% for paciente in paciente %}
+    <tbody>
+      <tr>
+        <td>{{paciente.paciente_nome}}</td>
+        <td>{{paciente.paciente_data_consulta}}</td>
+        <td>{{paciente.especialidade_nome}}</td>
+        <td>{{paciente.medico_nome}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+</div>
+
+  
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.cabecalho{
+  color: blue;
+}
+.containerx{
+  width: 80%;
+  margin-left: 8%;
+  margin-right: 20%;
+}
+.containery{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+</style>
+
+{% endblock content %}

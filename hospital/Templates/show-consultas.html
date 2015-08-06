@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+		Caro Sr(a) <b>{{dados.paciente_nome}}</b> a sua consulta foi marcada com sucesso para o dia <b>{{dados.paciente_data_consulta}}</b> com o Dr(a). <b>{{dados.paciente_medico}}</b><br>
+		<p><p><a href="/hello.pdf">Download pdf de confirmação</a></p></p>
+		<a href="/">Sair</a>
+	
+{% endblock content %}

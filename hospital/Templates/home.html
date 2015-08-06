@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+	{% block content %}
+
+<div class="containerx">
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary">Dados Pessoais e Dados da Consulta</button>
+
+  </div>
+</div>
+	<div class="cabecalho"><i>*Todos os campos são de preenchimento obrigatório</i></div>
+<div class="container">
+  <form class="form-horizontal" action ="/adicionar/" role="form" method="POST">{% csrf_token %}
+  	{{form.errors}}
+    <div class="form-group">
+        
+      <label class="control-label col-sm-2" for="pwd">Nome do Paciente:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="nome" name = "nome"placeholder="Nome">
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Sexo:</label>
+      <div class="col-sm-10">          
+        <select class="form-control" id="sexo" name = "sexo">
+        	<option></option>
+        	<option>masculino</option>
+        	<option>feminino</option>
+        </select>
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Numero do BI:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="numero_bi" name = "numero_bi"placeholder="Numero do Bilhete de Identidade">
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Naturalidade:</label>
+      <div class="col-sm-10">          
+        <select class="form-control input-sm" id="naturalidade" name="naturalidade">
+        <option></option>
+        <option>Cabinda</option>
+        <option>Uige</option>
+        <option>Zaire</option>
+        <option>Kuanza-Norte</option>
+        <option>Kuanza-Sul</option>
+        <option>Malanje</option>
+        <option>Luanda</option>
+        <option>Bengo</option>
+        <option>Lunda-Norte</option>
+        <option>Lunda-Sul</option>
+        <option>Huambo</option>
+        <option>Bie</option>
+        <option>Benguela</option>
+        <option>Huila</option>
+        <option>Namibe</option>
+        <option>Kuando Kubango</option>
+        <option>Moxico</option>
+        <option>Cunene</option>
+
+      </select>
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Estado Civil:</label>
+      <div class="col-sm-10">          
+        <select class="form-control input-sm" id="estado_civil" name="estado_civil">
+        <option></option>
+        <option>Solteiro(a)</option>
+        <option>Casado(a)</option>
+        <option>Viuvo(a)</option>
+        <option>Divorciado(a)</option>
+      </select>
+      </div>
+       <label class="control-label col-sm-2" for="pwd">Data de Nascimento:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="data_nascimento" name = "data_nascimento"placeholder="Data de Nascimento">
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Emissao do BI:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="data_de_emissao_bi" name = "data_de_emissao_bi"placeholder="Data de Emissao do BI">
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Validade do BI:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="data_de_validade" name = "data_de_validade"placeholder="Data de Validade do BI">
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Data da Consulta:</label>
+      <div class="col-sm-10">          
+        <input type="text" class="form-control" id="data_da_consulta" name = "data_da_consulta"placeholder="Data da Consulta">
+      </div>
+
+      <label class="control-label col-sm-2" for="pwd">Especialidade</label>
+      <div class="col-sm-10">
+        <select class="form-control input-sm" id="especialidade" name="especialidade">
+        <option></option>
+        {% for especialidade_lista in especialidade_lista %}
+        <option>{{especialidade_lista.especialidade_nome}}</option>
+        {%endfor%}
+      </select>
+      </div>
+      <label class="control-label col-sm-2" for="pwd">Medico:</label>
+      <div class="col-sm-10">          
+       <select class="form-control input-sm" id="medico" name = "medico">
+        <option></option>
+        {% for medico_lista in medico_lista %}
+        <option>{{medico_lista.medico_nome}}</option>
+        {% endfor %}
+        
+      </select>
+      </div>
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" value = "Join" class="btn btn-default">Gravar</button>
+      </div>
+    </div>
+  </form>
+</div>
+  
+<style type="text/css">
+.form-control{
+  width: 40%;
+  height: 30px;
+}
+.form-group{
+  padding-top: 5px;
+}
+.col-sm-10{
+  padding-bottom: 15px;
+}
+.cabecalho{
+  color: blue;
+}
+
+.form-horizontal{
+  padding-left: 0px;
+}
+.containerx{
+  margin-top: -6%;
+  margin-left: -1%;
+
+}
+.btn-group{
+
+}
+</style>
+
+	{% endblock content%}
+
+
+
